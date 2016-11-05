@@ -16,8 +16,8 @@ echo "# downloading plex.deb" >> $logpath
 wget -O /root/plex.deb "https://plex.tv/downloads/latest/1?channel=8&build=linux-ubuntu-x86_64&distro=ubuntu&X-Plex-Token=$plextoken" >> $logpath
 echo "#" >> $logpath
 echo "# comparing versions" >> $logpath
-newplex="$(dpkg -I /root/plex.deb | grep Version | awk '{print $2}' | awk -F'[ -]' '{print $1}')"
-currentplex="$(dpkg -l | grep plexmediaserver | awk '{print $3}' | awk -F'[ -]' '{print $1}')"
+newplex="$(dpkg-deb -f /root/plex.deb Version)"
+currentplex="$(dpkg-query --show -f='${Version}' plexmediaserver)"
 echo "# currently installed version is $currentplex" >> $logpath
 echo "# downloaded version is $newplex" >> $logpath
 /usr/bin/dpkg --compare-versions $newplex gt $currentplex
