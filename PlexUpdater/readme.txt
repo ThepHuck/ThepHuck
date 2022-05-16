@@ -5,3 +5,6 @@ It was written to download & install updates to Plex Media Server (PMS) for an e
 You will need to have a working installation of PMS to get your download link, then set it up as a cron job to regularly check for updates.
 
 For details, check my blog at http://thephuck.com/scripts/automatic-plex-media-server-update-script-for-linuxubuntu/
+
+cron setup:
+0 6 * * 2,5 /usr/bin/screen -x dpkginstall -X stuff "/root/dl_plex.sh \015"
