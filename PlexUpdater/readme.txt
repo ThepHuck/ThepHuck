@@ -10,3 +10,5 @@ cron setup:
 0 6 * * 2,5 /usr/bin/screen -x dpkginstall -X stuff "/root/dl_plex.sh \015"
 
 You can reattach to the screen by running "screen -r dpkginstall" to see the output, and then ctrl+a d to detach from the screen session.
+
+I also keep all previous version.  This saved me, as I discovered a bug in a version and was able to notify Plex which specific version the bug was introduced.
