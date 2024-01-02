@@ -76,6 +76,7 @@ function addDisks{
 
 try{
     $node = get-vm $VM
+    $script:vmView = $node | Get-View
 }
 catch  {
     write-host -fore red "I can't find the VM"
@@ -92,7 +93,6 @@ else{
 }
 
 #Get the NVMe controller's key
-$script:vmView = $node | Get-View
 $script:controllerKey = ($script:vmView.config.hardware.device | ? {$_.deviceinfo.Label -match "NVME"}).Key
 
 $DiskID = 0
