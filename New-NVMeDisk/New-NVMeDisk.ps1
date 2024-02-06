@@ -87,6 +87,7 @@ catch  {
 if(($script:vmView.config.hardware.device | ? {$_.deviceinfo.Label -match "NVME"}).count -eq 0){
     write-host "No NVMe controller present, adding!"
     addController
+    $script:vmView = $node | Get-View
     }
 else{
     write-host "NVMe controller found!"
