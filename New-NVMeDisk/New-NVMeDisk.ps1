@@ -31,7 +31,7 @@ function addController{
     $nvmeSpec.VirtualNuma = New-Object VMware.Vim.VirtualMachineVirtualNuma
     $controllerTask = $script:vmView.ReconfigVM_Task($nvmeSpec)
     $controllertaskID = $controllerTask.type + "-" + $controllerTask.Value
-    sleep 2
+    sleep 5
     if((Get-Task -Id $controllertaskID).State -notmatch "Success"){write-host "Check the host client UI, task was not successful"}
     else{write-host "NVMe controller added successfully!"}
 }
@@ -69,14 +69,13 @@ function addDisks{
     $vDiskSpec.DeviceChange[0].Operation = 'add'
     $vDiskSpec.VirtualNuma = New-Object VMware.Vim.VirtualMachineVirtualNuma
     $diskTask = $script:vmView.ReconfigVM_Task($vDiskSpec)
-    sleep 2
+    sleep 1
     if((Get-Task -Id $diskTask).State -notmatch "Success"){write-host "Check the host client UI, task was not successful"}
     else{write-host "Disk added successfully!"}
 }
 
 try{
     $node = get-vm $VM
-    $script:vmView = $node | Get-View
 }
 catch  {
     write-host -fore red "I can't find the VM"
@@ -87,13 +86,13 @@ catch  {
 if(($script:vmView.config.hardware.device | ? {$_.deviceinfo.Label -match "NVME"}).count -eq 0){
     write-host "No NVMe controller present, adding!"
     addController
-    $script:vmView = $node | Get-View
     }
 else{
     write-host "NVMe controller found!"
 }
 
 #Get the NVMe controller's key
+$script:vmView = $node | Get-View
 $script:controllerKey = ($script:vmView.config.hardware.device | ? {$_.deviceinfo.Label -match "NVME"}).Key
 
 $DiskID = 0
