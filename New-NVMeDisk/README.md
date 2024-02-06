@@ -13,4 +13,4 @@ First, connect directly to ESXi with `connect-viserver`
 Then `new-nvmeDisk.ps1 -VM vmname -NumberOfDisks 4 -DiskSizeGB 500`
 
 ## Info
-Tested on ESXi 8.0u1
+Tested on ESXi 8.0u1 & 8.0u2
