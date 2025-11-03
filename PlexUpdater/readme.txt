@@ -1,3 +1,10 @@
+** updated Nov 3, 2025 **
+
+This script will download the .deb file and compare it to the currently running version of PMS, and install if newer, but only if nothing is being played.
+
+You will need to get your token and add it to the plex_token variable.
+
+** Old version below **
 This shell script was written for Ubunutu and may need to be customized for your flavor of linux.
 
 It was written to download & install updates to Plex Media Server (PMS) for an existing installation on my Ubuntu server.
