@@ -1,10 +1,12 @@
 #!/bin/bash
+plex_token="change_me"
 echo "###########################"
+echo "# TEST"
 echo "#"
 echo "# $(date)"
 echo "#"
 echo "# Checking if any movies are being watched"
-sessions=$(curl http://127.0.0.1:32400/status/sessions?X-Plex-Token=Removed | grep "MediaContainer size" | awk -F'[\"]' '{print $2}')
+sessions=$(curl http://127.0.0.1:32400/status/sessions?X-Plex-Token=$plex_token | grep "MediaContainer size" | awk -F'[\"]' '{print $2}')
 if (($sessions < 1))
 then
 echo "#"
@@ -13,9 +15,9 @@ echo "#"
 echo "# downloading plex.deb"
 #
 # release
-wget -O /root/plex.deb "https://plex.tv/downloads/latest/1?channel=16&build=linux-ubuntu-x86_64&distro=ubuntu&X-Plex-Token=Removed"
+wget -O /root/plex.deb "https://plex.tv/downloads/latest/1?channel=16&build=linux-ubuntu-x86_64&distro=ubuntu"
 # beta url
-#wget -O /root/plex.deb "https://plex.tv/downloads/latest/5?channel=8&build=linux-x86_64&distro=debian&X-Plex-Token=Removed"
+#wget -O /root/plex.deb "https://plex.tv/downloads/latest/5?channel=8&build=linux-x86_64&distro=debian&X-Plex-Token=$plex_token"
 echo "#"
 echo "# comparing versions"
 newplex="$(dpkg -I /root/plex.deb | grep Version | awk '{print $2}' | awk -F'[ -]' '{print $1}')"
@@ -38,7 +40,7 @@ else
         echo "#"
         echo "# $newplex is not greater than $currentplex"
         echo "# deleting downloaded package"
-        rm plex.deb
+        rm /root/plex.deb
 fi
 else
 echo "#"
