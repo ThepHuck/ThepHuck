@@ -1,7 +1,6 @@
 #!/bin/bash
 plex_token="change_me"
 echo "###########################"
-echo "# TEST"
 echo "#"
 echo "# $(date)"
 echo "#"
